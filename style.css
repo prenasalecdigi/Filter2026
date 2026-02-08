@@ -1,53 +1,54 @@
-*{ box-sizing:border-box; margin:0; padding:0 }
+/* Mobilno prijazen layout: stage NE more požreti zaslona. Kontrole so vedno vidne. */
 
-html, body{
-  height:100%;
-}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; }
 
 body{
   background:#0b0f14;
-  font-family: system-ui, -apple-system, "Segoe UI Emoji";
   color:#fff;
+  font-family: system-ui, -apple-system, "Segoe UI Emoji", "Apple Color Emoji";
   display:flex;
   justify-content:center;
-  /* pomembno: na telefonu naj bo možno scrollat, če je potrebno */
-  overflow:auto;
 }
 
+/* Aplikacija je visok zaslon (100dvh) in ima 2 dela: stage + controls */
 .app{
   width:100%;
-  max-width:430px;
+  max-width:440px;
+  height:100dvh;
   padding:10px;
-
-  /* ključ: aplikacija naj se prilagodi višini telefona */
-  min-height: 100dvh;
   display:flex;
   flex-direction:column;
   gap:10px;
+
+  /* iPhone safe area */
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  padding-top: calc(10px + env(safe-area-inset-top));
 }
 
-/* ODER naj NE zasede več kot ~60% višine zaslona na telefonu */
+/* ODER 9:16, ampak omejen po višini */
 .stage{
   position:relative;
   width:100%;
-  aspect-ratio:9/16;
+  aspect-ratio: 9/16;
   background:#000;
   border-radius:18px;
   overflow:hidden;
   box-shadow: 0 14px 50px rgba(0,0,0,.45);
 
-  /* to je fix: omeji višino odra */
-  max-height: 60dvh;
+  /* KLJUČ: stage ne sme biti višji od ~55% zaslona */
+  max-height: 55dvh;
+  flex: 0 0 auto;
 }
 
 /* video */
-video{
+#video{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  transform:scaleX(-1);
+  transform: scaleX(-1); /* selfie */
 }
 
 /* overlay */
@@ -61,16 +62,14 @@ video{
   user-select:none;
 }
 
-/* stickers layer */
-.stickers{
+/* nalepke */
+.stickers-layer{
   position:absolute;
   inset:0;
-
-  /* geste naj se obdelajo na nalepkah, ne na celem body */
   touch-action:none;
 }
 
-/* nalepka */
+/* sticker */
 .sticker{
   position:absolute;
   left:50%;
@@ -81,39 +80,35 @@ video{
   line-height:1;
   user-select:none;
   touch-action:none;
-  cursor:grab;
   filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
 }
-.sticker:active{ cursor:grabbing; }
-
 .sticker.selected{
   outline:2px dashed rgba(77,163,255,.95);
   outline-offset:6px;
   border-radius:14px;
 }
 
-/* Kontrole: vedno vidne + po potrebi scroll */
+/* controls zavzame preostanek višine in se lahko scrolla */
 .controls{
-  display:grid;
-  gap:8px;
-
-  /* če je telefon zelo majhen, naj se kontrole lahko scrollajo */
+  flex: 1 1 auto;
+  min-height: 0;               /* omogoči scroll znotraj flex */
   overflow:auto;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 8px;
+  display:grid;
+  gap:8px;
+  padding-bottom: 6px;
 }
 
 /* gumbi */
-.btn, button{
+.btn{
   padding:12px;
-  border-radius:14px;
   border:none;
-  font-size:16px;
-  font-weight:700;
+  border-radius:14px;
   background:#1f2937;
-  color:white;
+  color:#fff;
+  font-size:16px;
+  font-weight:800;
 }
-
 .btn.primary{ background:#2563eb; }
 .btn.danger{ background:#7f1d1d; }
 
@@ -127,28 +122,27 @@ video{
   font-size:12px;
   color:#b6c3dd;
   line-height:1.35;
-  padding:6px 2px;
+  padding:2px 2px 6px;
 }
 
-/* emoji grid */
+/* emojis grid */
 .emojis{
   display:flex;
   flex-wrap:wrap;
   gap:6px;
 }
-
 .emojis button{
-  background:#111827;
-  font-size:22px;
   width:48px;
   height:48px;
   border-radius:14px;
   border:none;
+  background:#111827;
   color:#fff;
+  font-size:22px;
 }
 
-/* še malo bolj prijazno na zelo majhnih zaslonih */
-@media (max-height: 740px){
-  .stage{ max-height: 52dvh; }
+/* zelo majhni telefoni */
+@media (max-height: 720px){
+  .stage{ max-height: 48dvh; }
   .emojis button{ width:44px; height:44px; }
 }
