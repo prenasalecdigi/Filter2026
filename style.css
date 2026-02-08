@@ -1,19 +1,32 @@
 *{ box-sizing:border-box; margin:0; padding:0 }
 
+html, body{
+  height:100%;
+}
+
 body{
   background:#0b0f14;
   font-family: system-ui, -apple-system, "Segoe UI Emoji";
   color:#fff;
   display:flex;
   justify-content:center;
+  /* pomembno: na telefonu naj bo možno scrollat, če je potrebno */
+  overflow:auto;
 }
 
 .app{
   width:100%;
   max-width:430px;
   padding:10px;
+
+  /* ključ: aplikacija naj se prilagodi višini telefona */
+  min-height: 100dvh;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
+/* ODER naj NE zasede več kot ~60% višine zaslona na telefonu */
 .stage{
   position:relative;
   width:100%;
@@ -22,8 +35,12 @@ body{
   border-radius:18px;
   overflow:hidden;
   box-shadow: 0 14px 50px rgba(0,0,0,.45);
+
+  /* to je fix: omeji višino odra */
+  max-height: 60dvh;
 }
 
+/* video */
 video{
   position:absolute;
   inset:0;
@@ -33,6 +50,7 @@ video{
   transform:scaleX(-1);
 }
 
+/* overlay */
 .overlay{
   position:absolute;
   inset:0;
@@ -43,13 +61,16 @@ video{
   user-select:none;
 }
 
+/* stickers layer */
 .stickers{
   position:absolute;
   inset:0;
-  touch-action:none; /* pomembno: omogoči naše geste */
+
+  /* geste naj se obdelajo na nalepkah, ne na celem body */
+  touch-action:none;
 }
 
-/* Nalepka */
+/* nalepka */
 .sticker{
   position:absolute;
   left:50%;
@@ -71,13 +92,19 @@ video{
   border-radius:14px;
 }
 
+/* Kontrole: vedno vidne + po potrebi scroll */
 .controls{
-  margin-top:10px;
   display:grid;
   gap:8px;
+
+  /* če je telefon zelo majhen, naj se kontrole lahko scrollajo */
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
 }
 
-.btn{
+/* gumbi */
+.btn, button{
   padding:12px;
   border-radius:14px;
   border:none;
@@ -103,6 +130,7 @@ video{
   padding:6px 2px;
 }
 
+/* emoji grid */
 .emojis{
   display:flex;
   flex-wrap:wrap;
@@ -117,4 +145,10 @@ video{
   border-radius:14px;
   border:none;
   color:#fff;
+}
+
+/* še malo bolj prijazno na zelo majhnih zaslonih */
+@media (max-height: 740px){
+  .stage{ max-height: 52dvh; }
+  .emojis button{ width:44px; height:44px; }
 }
