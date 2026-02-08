@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="sl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Foto filter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+
+    <div class="stage" id="stage">
+      <video id="video" autoplay playsinline muted></video>
+      <img src="zelen.png" class="overlay" alt="overlay">
+      <div id="stickers" class="stickers"></div>
+    </div>
+
+    <div class="controls">
+      <button id="shot" class="btn primary">📸 Fotografiraj</button>
+      <button id="flip" class="btn">🔄 Obrni kamero</button>
+
+      <div class="row">
+        <button id="deleteSelected" class="btn danger">🗑 Izbriši nalepko</button>
+        <button id="clearAll" class="btn danger">🧹 Počisti vse</button>
+      </div>
+
+      <div class="help">
+        Tapni emoji → doda nalepko. <br>
+        1 prst: premik • 2 prsta: pinch zoom + rotacija • Tap nalepke: izberi • 🗑 izbriše izbrano.
+      </div>
+
+      <div class="emojis" id="emojiBar">
+        <button>🚜</button><button>🌸</button><button>🐴</button><button>🐄</button>
+        <button>🧪</button><button>🔬</button><button>🧬</button>
+        <button>🍎</button><button>🥛</button><button>🧁</button>
+        <button>🎂</button><button>🥩</button><button>🎓</button>
+        <button>📚</button><button>🪴</button><button>🍅</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
