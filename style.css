@@ -1,0 +1,120 @@
+*{ box-sizing:border-box; margin:0; padding:0 }
+
+body{
+  background:#0b0f14;
+  font-family: system-ui, -apple-system, "Segoe UI Emoji";
+  color:#fff;
+  display:flex;
+  justify-content:center;
+}
+
+.app{
+  width:100%;
+  max-width:430px;
+  padding:10px;
+}
+
+.stage{
+  position:relative;
+  width:100%;
+  aspect-ratio:9/16;
+  background:#000;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow: 0 14px 50px rgba(0,0,0,.45);
+}
+
+video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scaleX(-1);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+}
+
+.stickers{
+  position:absolute;
+  inset:0;
+  touch-action:none; /* pomembno: omogoči naše geste */
+}
+
+/* Nalepka */
+.sticker{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%) rotate(0deg) scale(1);
+  transform-origin:center center;
+  font-size:64px;
+  line-height:1;
+  user-select:none;
+  touch-action:none;
+  cursor:grab;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
+}
+.sticker:active{ cursor:grabbing; }
+
+.sticker.selected{
+  outline:2px dashed rgba(77,163,255,.95);
+  outline-offset:6px;
+  border-radius:14px;
+}
+
+.controls{
+  margin-top:10px;
+  display:grid;
+  gap:8px;
+}
+
+.btn{
+  padding:12px;
+  border-radius:14px;
+  border:none;
+  font-size:16px;
+  font-weight:700;
+  background:#1f2937;
+  color:white;
+}
+
+.btn.primary{ background:#2563eb; }
+.btn.danger{ background:#7f1d1d; }
+
+.row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:8px;
+}
+
+.help{
+  font-size:12px;
+  color:#b6c3dd;
+  line-height:1.35;
+  padding:6px 2px;
+}
+
+.emojis{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.emojis button{
+  background:#111827;
+  font-size:22px;
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  border:none;
+  color:#fff;
+}
